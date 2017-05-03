@@ -21,7 +21,7 @@ import java.util.Random;
 
 public class MainActivity extends Activity implements
         GestureDetector.OnGestureListener {
-
+    private static final String TAG_EXIT = "exit";
     final int[] backgrounds = new int[] { R.drawable.photo0, R.drawable.photo2,
             R.drawable.photo4, R.drawable.photo8, R.drawable.photo16,
             R.drawable.photo32, R.drawable.photo64, R.drawable.photo128,
@@ -86,6 +86,17 @@ public class MainActivity extends Activity implements
 
         // 初始化成绩
         scoreText.setText(score + "");
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (intent != null) {
+            boolean isExit = intent.getBooleanExtra(TAG_EXIT, false);
+            if (isExit) {
+                this.finish();
+            }
+        }
     }
 
     // 左滑事件处理
@@ -570,7 +581,7 @@ public class MainActivity extends Activity implements
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId() == R.id.shiftgame)
         {
-            Intent intent = new Intent(MainActivity.this, ShiftGame.class);
+            Intent intent = new Intent(MainActivity.this , ShiftGame.class);
             startActivity(intent);
         }
         if (item.getItemId() == R.id.action_settings) {

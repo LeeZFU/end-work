@@ -3,10 +3,12 @@ package com.end;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -183,31 +185,31 @@ public class ShiftGame extends Activity implements
             }
         });
 
-        bns[15].setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                action(15, 11, 14);
-                check();
-            }
-        });
+                bns[15].setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        action(15, 11, 14);
+                        check();
+                    }
+                });
 
-        freshData.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                for (int i = 0; i < 15; i++) {
-                    if (nums[i] == 0)
-                        bns[i].setBackgroundResource(R.drawable.blank_7);
-                    nums[i] = i + 1;
-                }
-                nums[15] = 0;
-                for (int i = 0; i < 15; i++) {
-                    int j = rand.nextInt(15);
-                    int temp = nums[i];
-                    nums[i] = nums[j];
-                    nums[j] = temp;
-                }
-                for (int i = 0; i < 15; i++)
-                    bns[i].setText(String.valueOf(nums[i]));
+                freshData.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        for (int i = 0; i < 15; i++) {
+                            if (nums[i] == 0)
+                                bns[i].setBackgroundResource(R.drawable.blank_7);
+                            nums[i] = i + 1;
+                        }
+                        nums[15] = 0;
+                        for (int i = 0; i < 15; i++) {
+                            int j = rand.nextInt(15);
+                            int temp = nums[i];
+                            nums[i] = nums[j];
+                            nums[j] = temp;
+                        }
+                        for (int i = 0; i < 15; i++)
+                            bns[i].setText(String.valueOf(nums[i]));
                 bns[15].setText("");
                 bns[15].setBackgroundResource(R.drawable.blank_1);
                 helpTimes = 0;
@@ -389,6 +391,18 @@ public class ShiftGame extends Activity implements
         getMenuInflater().inflate(R.menu.shift_game, menu);
         return true;
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        if (item.getItemId() == R.id.action_back) {
+            Intent intent = new Intent(ShiftGame.this , MainActivity.class);
+            finish();
+            startActivity(intent);
+        }
+        return true;
+    }
+
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent arg1) {
